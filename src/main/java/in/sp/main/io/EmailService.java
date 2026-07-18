@@ -39,8 +39,11 @@ public class EmailService {
         String jsonBody = "{"
                 + "\"sender\":{\"email\":\"" + fromEmail + "\"},"
                 + "\"to\":[{\"email\":\"" + email + "\"}],"
-                + "\"subject\":\"Verify email otp for chitChat application \","
-                + "\"htmlContent\":\"<p>Hello,"+email +"Your otp for verify the account is <b>" + otp + "<b> Regards, \\n chitchatApplication </b></p>\""+ "}";
+                + "\"subject\":\"Verify Email OTP\","
+                + "\"htmlContent\":\"<p>Hello " + email
+                + ",<br><br>Your OTP is <b>" + otp + "</b>"
+                + "<br><br>Regards,<br>ChitChat Application</p>\""
+                + "}";
         HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
@@ -66,11 +69,18 @@ public class EmailService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("api-key", brevoApiKey); 
 
-        String jsonBody = "{"
-                + "\"sender\":{\"email\":\"" + fromEmail + "\"},"
-                + "\"to\":[{\"email\":\"" + email + "\"}],"
-                + "\"subject\":\"Reset password Link.. \","
-                + "\"htmlContent\":\"<p>Hello,"+email +"we a recieved a request to reset your password. \"+ \"\\n Click the button or link below to create a new password :<b> \"http://localhost:5173/reset-password?token="+token + "<b> Regards, \\n This link expire will 5 minutes chitchatApplication </b></p>\""+ "}";
+        String resetLink = "https://chat-application-front-end-five.vercel.app/reset-password?token=" + token;
+
+String jsonBody = "{"
+        + "\"sender\":{\"email\":\"" + fromEmail + "\"},"
+        + "\"to\":[{\"email\":\"" + email + "\"}],"
+        + "\"subject\":\"Reset Password\","
+        + "\"htmlContent\":\"<p>Hello " + email
+        + ",<br><br>We received a request to reset your password."
+        + "<br><br><a href='" + resetLink + "'>Click here to reset your password</a>"
+        + "<br><br>This link will expire in 5 minutes."
+        + "<br><br>Regards,<br>ChitChat Application</p>\""
+        + "}";
         HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
         try {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
