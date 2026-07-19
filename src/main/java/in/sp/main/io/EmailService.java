@@ -16,9 +16,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmailService {
 	private final JavaMailSender javaMailSender;
+	
 	@Value("${spring.mail.properties.mail.smtp.from}")
 	private String fromEmail;
-	
 	@Value("${brevo.api.key}")
     private String brevoApiKey;
 

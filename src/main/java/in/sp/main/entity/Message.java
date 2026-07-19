@@ -31,6 +31,8 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+	@Lob
+	@Column(columnDefinition = "LONGTEXT")
 	private String content;
 	private String iv;
 	@CreationTimestamp
